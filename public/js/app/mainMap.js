@@ -156,6 +156,7 @@ require([
 
             // 定位（做了修正，tooltip的默认点位置）
             $frag.css({
+                color: 'white',
                 position: 'fixed',
                 top: (posY-15) + 'px',
                 left: (posX+20) + 'px',
@@ -195,19 +196,14 @@ require([
         // 获取攻击数据
         getAttacks: function(){
             var that = this;
-            /*$.get(
-                '/ajaxGetMapData',
-                {
-                    orgAdminId: $('#orgAdminId').val()
-                },
-                function(data){
-                    that._renderAttacks(data);
-                }
-            );*/
-
+            //远程攻击数据
+            $.get("http://localhost:8080/api/ids_log/SA_event",function(data,status){
+                that.attacksData = data;
+                that._renderAttacks(that.attacksData);
+            });
             // 本地mock数据
-            that.attacksData = Mock.data;
-            that._renderAttacks(that.attacksData);
+            //that.attacksData = Mock.data;
+            //that._renderAttacks(that.attacksData);
         }
     };
 

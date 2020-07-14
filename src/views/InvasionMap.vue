@@ -367,7 +367,7 @@ export default {
     #attacksDiv{
         position: fixed;
         bottom: 0;
-        left: 320px;
+        left: 25%;
         height: 200px;
         padding: 12px 20px;
         box-sizing: border-box;
