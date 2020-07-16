@@ -39,7 +39,7 @@ export default {
           icon: "fa-exclamation-circle",
           name: "流量检测",
           path: "fund",
-            children: [{ path: "invasionList1", name: "流量日志" }, {path: "invasionList2", name: "恶意流量报警日志"}, {path: "invasionList3", name: "用户访问检测"}, {path: "invasionMap", name: "态势展示"}]
+            children: [{ path: "invasionList1", name: "流量日志" }, {path: "invasionList2", name: "恶意流量报警日志"}, {path: "invasionList3", name: "用户访问检测"}, {path: "invasionMap", name: "态势展示"}, {path: "invasionList5", name: "态势威胁值曲线"}]
         },
         {
           icon: "fa-exclamation-triangle",

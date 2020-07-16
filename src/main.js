@@ -9,6 +9,10 @@ import Schart from 'vue-schart'
 import echarts from 'echarts'
 import moment from "moment"
 
+
+import VueSocketIO from 'vue-socket.io';
+import SocketIO from 'socket.io-client';
+
 window.Vue = Vue;
 Vue.filter('dataFormat',function(dataStr,pattern="YYYY-MM-DD HH:mm:ss"){
   　　//直接调用moment，得到的是当前的时间
@@ -30,8 +34,42 @@ Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 
 
+/*
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')
+*/
+
+
+Vue.use(new VueSocketIO({
+
+        debug: true,
+  
+        connection: SocketIO('http://116.77.74.139:9002'),
+
+        
+  
+  }))
 
 new Vue({
+  sockets: {
+    connecting() {
+      console.log('正在连接')
+    },
+    disconnect() {
+      console.log("Socket 断开");
+    },
+    connect_failed() {
+      cosnole.log('连接失败')
+    },
+    connect() {
+      console.log('socket connected')
+    }
+  },
+
+  
   router,
   store,
   render: h => h(App)

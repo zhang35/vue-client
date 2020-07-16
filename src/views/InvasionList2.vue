@@ -75,6 +75,7 @@ export default {
     name:'invasionList1',
     data(){
         return{
+            full_log: "",
             tableData:[], 
             alltableData:[],
             filterTableData: [],  

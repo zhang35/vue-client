@@ -10,6 +10,7 @@ import FundList from './views/FundList'
 import InvasionList1 from './views/InvasionList1'
 import InvasionList2 from './views/InvasionList2'
 import InvasionList3 from './views/InvasionList3'
+import InvasionList5 from './views/InvasionList5'
 import InvasionMap from './views/InvasionMap'
 Vue.use(Router)
 
@@ -31,6 +32,7 @@ const router = new Router({
         {path:'/invasionList1',name:"invasionList1",component:InvasionList1},
         {path:'/invasionList2',name:"invasionList2",component:InvasionList2},
         {path:'/invasionList3',name:"invasionList3",component:InvasionList3},
+        {path:'/invasionList5',name:"invasionList5",component:InvasionList5},
         {path:'/invasionMap',name:"invasionMap",component:InvasionMap},
         {path:'/infoshow',name:"infoshow",component:Infoshow},
         {path:'/fundList',name:"fundList",component:FundList},
