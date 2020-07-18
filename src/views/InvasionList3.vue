@@ -29,7 +29,7 @@
                 
                 <el-table-column prop=commands label="访问服务" align="center" width="200" sortable></el-table-column>
                
-                <el-table-column prop=frequency label="访问频率" align="center" width="200" sortable></el-table-column>
+                <el-table-column prop=frequency label="访问频率" align="center"  sortable></el-table-column>
                 
 
                 <el-table-column prop="operation" align="center" label="操作" fixed="right" width="240">

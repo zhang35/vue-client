@@ -27,7 +27,7 @@
                 <el-table-column prop="username" label="姓名" align="center" width="150"></el-table-column>
                 <el-table-column prop="command" label="访问服务" align="center" width="150"></el-table-column>
                 <el-table-column prop="request" label="请求前缀" align="center" width="300"></el-table-column>
-                <el-table-column prop="danger" label="危险信息" align="center" width="90"></el-table-column>
+                <el-table-column prop="danger" label="危险信息" align="center" ></el-table-column>
                 <el-table-column prop="operation" align="center" label="操作" fixed="right" width="240">
                   <template slot-scope="scope">
                     <el-button type="warning" icon="edit" size="small"
@@ -126,7 +126,7 @@ export default {
         //显示详细信息
         showDetail(index,row){
             this.centerDialogVisible =true;
-            this.full_log = row.message;
+            this.full_log = row.data;
             return this.full_log;          
         },
 

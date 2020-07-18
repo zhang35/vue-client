@@ -44,7 +44,13 @@ export default {
             chart_data:[],
             host_chart_x:[],
             host_chart_y:[],
-            host_chart_data:[]
+            host_chart_data:[],
+            predict_char_x:[],
+            predict_char_y:[],
+            predict_chart_data:[],
+            predict_host_chart_x:[],
+            predict_host_chart_y:[],
+            predict_host_chart_data:[]
         };
     },
 
@@ -86,7 +92,8 @@ export default {
             //读取数据，将数据转化为x轴与y轴的列表
             var list_x = [];
             
-            var result = res.reverse();
+            var result = res;
+            //var result = res.reverse();
             if(result!=undefined){
                 
                 result.forEach(function(key, v) {
@@ -124,7 +131,8 @@ export default {
             console.log("========================",res);
             var host_list_x = [];
             
-            var result = res.reverse();
+            var result = res;
+            //var result = res.reverse();
             if(result!=undefined){
                 result.forEach(function(key, v) {
                     if(key){                           
@@ -158,6 +166,82 @@ export default {
             
             this.moreChart2();
         });      
+
+        //接受网络态势预测值
+        this.sockets.listener.subscribe('predict_data', (res) =>{
+            //读取数据，将数据转化为x轴与y轴的列表
+            var list_x = [];
+            console.log("预测数据值", res);
+            var result = res;
+            //var result = res.reverse();
+            if(result!=undefined){
+                
+                result.forEach(function(key, v) {
+                    if(key){                           
+                            if(v!=null){                      
+                                    list_x.push(key.time);
+                            }else{                                   
+                                    console.log("OK");                                 
+                            }
+                    }
+                })
+            }
+            
+            this.predict_char_x = list_x;
+            var list_y = [];    
+            if(result!=undefined){
+                
+                result.forEach(function(key, v) {
+                    if(key){                           
+                            if(v!=null){                      
+                                    list_y.push(key.value);
+                            }else{                                   
+                                    console.log("OK");                                 
+                            }
+                    }
+                })   
+            }
+            this.predict_char_y = list_y;
+            this.moreChart()
+        });
+
+
+        this.sockets.listener.subscribe('predict_host_value', (res) =>{
+            //读取数据，将数据转化为x轴与y轴的列表
+            var list_x = [];
+            console.log("预测主机态势值", res);
+            var result = res;
+            //var result = res.reverse();
+            if(result!=undefined){
+                
+                result.forEach(function(key, v) {
+                    if(key){                           
+                            if(v!=null){                      
+                                    list_x.push(key.time);
+                            }else{                                   
+                                    console.log("OK");                                 
+                            }
+                    }
+                })
+            }
+            
+            this.predict_host_chart_x = list_x;
+            var list_y = [];    
+            if(result!=undefined){
+                
+                result.forEach(function(key, v) {
+                    if(key){                           
+                            if(v!=null){                      
+                                    list_y.push(key.value);
+                            }else{                                   
+                                    console.log("OK");                                 
+                            }
+                    }
+                })   
+            }
+            this.predict_host_chart_y = list_y;
+            this.moreChart2()
+        });
         //io('http://116.77.74.139:9002').on('data', (res) => {
         //    console.log("我没有收到");
         //    console.log('socket.io-client', res)
@@ -194,6 +278,12 @@ export default {
             var y = this.char_y;
             Highcharts.each(this.char_x, function(xData, i){
                 c_data.push([xData, y[i]])
+            });
+
+            var predict_c_data = [];
+            var predict_y = this.predict_char_y;
+            Highcharts.each(this.predict_char_x, function(xData, i){
+                predict_c_data.push([xData, predict_y[i]]);
             });
             console.log(c_data);
             this.chart = new Highcharts.Chart("container", {
@@ -248,6 +338,11 @@ export default {
                     {
                         name: "网络态势威胁值",
                         data: c_data
+                    },
+                    {
+                        name: "网络态势威胁预测值",
+                        data: predict_c_data,
+                        color: '#8085e9'
                     }
                 ],
 
@@ -287,7 +382,13 @@ export default {
             Highcharts.each(this.host_chart_x, function(xData, i){
                 c_data2.push([xData, y2[i]])
             });
-            console.log(c_data2);
+            //console.log(c_data2);
+            var predict_c_data2 = [];
+            var predict_y2 = this.predict_host_chart_y;
+            Highcharts.each(this.predict_host_chart_x, function(xData, i){
+                predict_c_data2.push([xData, predict_y2[i]]);
+            });
+            console.log("监测点", predict_c_data2);
             this.chart2 = new Highcharts.Chart("container2", {
                 title: {
                     text: "主机安全态势威胁值",
@@ -342,8 +443,13 @@ export default {
             
                 series: [
                     {
-                    name: "网络态势威胁值",
+                    name: "主机态势威胁值",
                     data: c_data2
+                    },
+                    {
+                    name: "主机态势威胁预测值",
+                    data: predict_c_data2,
+                    color: '#91e8e1'
                     }
                 ],
                 responsive: {

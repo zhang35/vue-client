@@ -151,7 +151,8 @@ export default {
         //显示详细信息
         showDetail(index,row){
             this.centerDialogVisible =true;
-            this.full_log = row.message;
+            console.log("_____________________________________",row);
+            this.full_log = row.data;
             return this.full_log;          
         },
         setPaginations() {
