@@ -31,12 +31,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><a href="#" class="default">评分1</a></td>
-                            <td>90</td>
+                            <td><a href="#" class="default">主机态势值</a></td>
+                            <td>{{SA_host_value}}</td>
                         </tr>
                         <tr>
-                            <td><a href="#" class="default">评分2</a></td>
-                            <td>88</td>
+                            <td><a href="#" class="default">网络态势值</a></td>
+                            <td>{{SA_value}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -75,6 +75,8 @@ export default {
     name:'invasionMap',
     data(){
         return{
+            SA_value:[],
+            SA_host_value:[],
             tableData:[], 
             alltableData:[],
             filterTableData: [],  
@@ -107,23 +109,22 @@ export default {
     }
     },
     created(){
-        //this.getAlert();
+        this.getScore();
     },
     mounted(){
-        //this.getAlert();
+        this.getScore();
         let mapScript = document.createElement('script');
         mapScript.setAttribute('src', '../js/app/mainMap.js');
         document.head.appendChild(mapScript);
     },
     methods:{
-        getAlert(){
-            this.$axios.get('/api/ids_log/event_log').then(res => {
-            console.log(res);
-            this.tableData = res.data;
-            this.allTableData = res.data;
-            this.filterTableData = res.data;
-            // // 设置分页数据
-            this.setPaginations();
+        getScore(){
+            this.$axios.get('/api/ids_log/SA_value').then(res => {
+                this.SA_value = res.data[0].value;
+            }).catch(err => console.log(err));
+
+            this.$axios.get('/api/ids_log/SA_host_value').then(res => {
+                this.SA_host_value = res.data[0].value;
             }).catch(err => console.log(err));
         },        
         //删除信息函数  目前服务器未实现
