@@ -13,7 +13,7 @@
     "core-js": "^2.6.5",
     "echarts": "^4.7.0",
     "element-ui": "^2.11.1",
-    "highcharts": "^8.1.2",
+    "highcharts": "^9.0.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
     "mongodb": "^3.3.0-beta2",
